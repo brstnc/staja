@@ -1,0 +1,47 @@
+# PHP-MYSQL Server Docker Compose Containers
+#
+# @container php7.3
+# @on debian stretch-slim
+#
+# @container mysql8.0.13
+# @on debian stretch-slim
+version: '3'
+services:
+    php:
+        image: beyaz/php:7.3.0
+        container_name: beyaz-php
+        networks:
+            app_net:
+                ipv4_address: 172.10.10.10
+        build:
+            context: .
+            dockerfile: php/Dockerfile
+            args:
+                - PHP_VERSION=7.3.0-apache-stretch
+        volumes:
+            - ./html/:/var/www/html/
+            - ./php/sites-available/:/etc/apache2/sites-available/
+            - ./php/sites-enabled/:/etc/apache2/sites-enabled/
+    mysql:
+        image: mysql:8.0.13
+        container_name: beyaz-mysql
+        networks:
+            app_net:
+                ipv4_address: 172.10.10.11
+        ports:
+            - 13306:3306
+        environment:
+            MYSQL_DATABASE: beyaz-db
+            MYSQL_USER: beyaz-user
+            MYSQL_PASSWORD: beyaz-user-password
+            MYSQL_ROOT_PASSWORD: root-passwrod
+        volumes:
+            - ./database/:/var/lib/mysql/
+networks:
+    app_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                -
+                    subnet: 172.10.10.0/24

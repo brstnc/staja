@@ -1,0 +1,11 @@
+.tmp/*
+database/*
+docs/*
+!docs/.gitkeep
+html/public/*
+!html/public/.htaccess
+!html/public/index.php
+html/tests/*
+!html/tests/.gitkeep
+html/vendor/*
+html/composer.lock

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" processIsolation="false" stopOnFailure="false">
+    <php>
+        <ini name="memory_limit" value="-1"/>
+        <ini name="apc.enable_cli" value="1"/>
+    </php>
+    <testsuites>
+        <testsuite name="BeyazTestSuite">
+            <directory suffix="ReceiptTest.php" phpVersion="7.3.0" phpVersionOperator=">=">./tests</directory>
+            <file phpVersion="7.3.0" phpVersionOperator=">=">./tests/ReceiptTest.php</file>
+            <!-- <exclude>./tests/Exc.php</exclude> -->
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./public</directory>
+            <!-- 
+            <file>/public/white.php</file>
+            <exclude>
+                <directory suffix=".php">./public</directory>
+                <file>/public/exclude.php</file>
+            </exclude>
+             -->
+        </whitelist>
+    </filter>
+    <logging>
+        <log
+            type="coverage-html"
+            target="./tmp/coverage/html/"
+            charset="UTF-8"
+            highlight="true"
+            lowUpperBound="60"
+            highLowerBound="90"
+        />
+        <log
+            type="coverage-clover"
+            target="./tmp/coverage/clover.xml"
+        />
+    </logging>
+</phpunit>
