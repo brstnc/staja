@@ -9,10 +9,10 @@ version: '3'
 services:
     php:
         image: beyaz/php:7.3.0
-        container_name: beyaz-php
+        container_name: oauth-php
         networks:
             app_net:
-                ipv4_address: 172.10.10.10
+                ipv4_address: 172.11.11.10
         build:
             context: .
             dockerfile: php/Dockerfile
@@ -22,19 +22,20 @@ services:
             - ./html/:/var/www/html/
             - ./php/sites-available/:/etc/apache2/sites-available/
             - ./php/sites-enabled/:/etc/apache2/sites-enabled/
+            - ./php/ssl/:/etc/apache2/ssl/
     mysql:
         image: mysql:8.0.13
-        container_name: beyaz-mysql
+        container_name: oauth-mysql
         networks:
             app_net:
-                ipv4_address: 172.10.10.11
+                ipv4_address: 172.11.11.11
         ports:
             - 13306:3306
         environment:
             MYSQL_DATABASE: beyaz-db
             MYSQL_USER: beyaz-user
-            MYSQL_PASSWORD: beyaz-user-password
-            MYSQL_ROOT_PASSWORD: root-passwrod
+            MYSQL_PASSWORD: beyazpassword
+            MYSQL_ROOT_PASSWORD: rootpasswrod
         volumes:
             - ./database/:/var/lib/mysql/
 networks:
@@ -44,4 +45,4 @@ networks:
             driver: default
             config:
                 -
-                    subnet: 172.10.10.0/24
+                    subnet: 172.11.11.0/24

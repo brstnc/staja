@@ -12,14 +12,11 @@
     },
     "require-dev": {
         "phpunit/phpunit": "8.0.1",
-        "mockery/mockery": "1.2.0"
     },
     "autoload": {
         "psr-4": {}
     },
     "autoload-dev": {
-        "psr-4": {
-            "TDD\\": "tests/"
-        }
+        "psr-4": {}
     }
 }
